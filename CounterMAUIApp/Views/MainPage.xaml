@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CounterMAUIApp.MainPage"
+             BackgroundColor="#F4F6FF">
+
+    <ContentPage.Resources>
+        <Style x:Key="SmallButtonStyle" TargetType="Button">
+            <Setter Property="HeightRequest" Value="30" />
+            <Setter Property="WidthRequest" Value="50" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="10" BackgroundColor="White">
+            <!-- Add Counter Button -->
+            <Button x:Name="addCounterButton" Text="Add Counter" 
+                    BackgroundColor="#0E66FC" TextColor="White" 
+                    Clicked="AddCounterButton_Clicked" />
+
+            <!--Form for adding new counter-->
+            <VerticalStackLayout x:Name="counterForm" IsVisible="False" Padding="20" BackgroundColor="#f2f0f0">
+                <Entry x:Name="titleEntryField" Placeholder="Title" PlaceholderColor="black" TextColor="black" Margin="0,0,0,10"/>
+                <Entry x:Name="valueEntryField" Placeholder="Value"  PlaceholderColor="black" TextColor="black" Keyboard="Numeric" IsVisible="True" />
+
+                <!--Buttons for selecting color-->
+                <HorizontalStackLayout Spacing="10" Margin="0,10,0,0">
+                    <Button Text="Blue" BackgroundColor="#0E66FC" TextColor="White" Clicked="ColorButton_Clicked" CommandParameter="#0E66FC" />
+                    <Button Text="Red" BackgroundColor="#FF0000" TextColor="White" Clicked="ColorButton_Clicked" CommandParameter="#FF0000" />
+                    <Button Text="Green" BackgroundColor="#00FF00" TextColor="White" Clicked="ColorButton_Clicked" CommandParameter="#00FF00" />
+                    <Button Text="Yellow" BackgroundColor="#FFFF00" TextColor="White" Clicked="ColorButton_Clicked" CommandParameter="#FFFF00" />
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout Spacing="10" Margin="0,10,0,10">
+                    <Button x:Name="saveButton" Text="Add Counter" Clicked="SaveButton_Clicked" />
+                    <Button Text="Cancel" Clicked="CancelButton_Clicked" />
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+
+            <!-- List of Counters -->
+            <ListView x:Name="listView" HasUnevenRows="True" BackgroundColor="white" VerticalOptions="FillAndExpand">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame BackgroundColor="{Binding Color}" CornerRadius="10" Margin="0,10,0,0" Padding="10" BorderColor="Transparent">
+                                <VerticalStackLayout Spacing="10">
+                                    <VerticalStackLayout Spacing="5">
+                                        <Label Text="Title: " FontSize="17" FontAttributes="Bold" TextColor="white"  />
+                                        <Label Text="{Binding Title}" FontSize="17" FontAttributes="Bold" TextColor="white"  />
+                                        <Label Text="Value: " FontSize="17" FontAttributes="Bold" TextColor="white"  />
+                                        <Label Text="{Binding Value}" FontSize="17" FontAttributes="Bold" TextColor="white"  />
+                                    </VerticalStackLayout>
+                                    <HorizontalStackLayout Spacing="5">
+                                        <Button Text="+" Clicked="IncreaseValue_Clicked" BackgroundColor="#ececec" TextColor="black" Style="{StaticResource SmallButtonStyle}" />
+                                        <Button Text="-" Clicked="DecreaseValue_Clicked" BackgroundColor="#ececec" TextColor="black" Style="{StaticResource SmallButtonStyle}" />
+                                        <Button Text="Edit" Clicked="EditNote_Clicked" BackgroundColor="#ececec" TextColor="black" Style="{StaticResource SmallButtonStyle}" />
+                                        <Button Text="Delete" Clicked="DeleteNote_Clicked" BackgroundColor="#ececec" TextColor="black" Style="{StaticResource SmallButtonStyle}" />
+                                        <Button Text="Reset" Clicked="ResetValue_Clicked" BackgroundColor="#ececec" TextColor="black" Style="{StaticResource SmallButtonStyle}" />
+                                    </HorizontalStackLayout>
+                                </VerticalStackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
